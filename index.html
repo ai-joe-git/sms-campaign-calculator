@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMS Ad Campaign Profit Calculator</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body, html {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            height: 100%;
+            background: linear-gradient(45deg, #1a237e, #3949ab, #42a5f5);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .calculator {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            transform: translateY(20px);
+            opacity: 0;
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        label {
+            display: block;
+            margin-top: 20px;
+            color: #fff;
+            font-weight: 300;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #64b5f6;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #42a5f5;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 165, 245, 0.4);
+        }
+
+        #result {
+            margin-top: 30px;
+            font-weight: 400;
+            text-align: center;
+            color: #fff;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        #result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <h1>SMS Ad Campaign Profit Calculator</h1>
+        <form id="profitForm">
+            <label for="totalSMS">Total SMS sent:</label>
+            <input type="number" id="totalSMS" required>
+
+            <label for="costPerSMS">Cost per SMS ($):</label>
+            <input type="number" id="costPerSMS" step="0.01" required>
+
+            <label for="conversionRate">Conversion rate (%):</label>
+            <input type="number" id="conversionRate" step="0.01" required>
+
+            <label for="revenuePerConversion">Revenue per conversion ($):</label>
+            <input type="number" id="revenuePerConversion" step="0.01" required>
+
+            <button type="button" onclick="calculateProfit()">Calculate Profit</button>
+        </form>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function calculateProfit() {
+            const totalSMS = parseFloat(document.getElementById('totalSMS').value);
+            const costPerSMS = parseFloat(document.getElementById('costPerSMS').value);
+            const conversionRate = parseFloat(document.getElementById('conversionRate').value) / 100;
+            const revenuePerConversion = parseFloat(document.getElementById('revenuePerConversion').value);
+
+            const totalCost = totalSMS * costPerSMS;
+            const totalConversions = totalSMS * conversionRate;
+            const totalRevenue = totalConversions * revenuePerConversion;
+            const profit = totalRevenue - totalCost;
+
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `
+                <strong>Total Cost:</strong> $${totalCost.toFixed(2)}<br>
+                <strong>Total Conversions:</strong> ${totalConversions.toFixed(2)}<br>
+                <strong>Total Revenue:</strong> $${totalRevenue.toFixed(2)}<br>
+                <strong>Profit:</strong> $${profit.toFixed(2)}
+            `;
+            resultElement.classList.add('show');
+        }
+    </script>
+</body>
+</html>
