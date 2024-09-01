@@ -12,7 +12,7 @@ This project is a modern, responsive web application that calculates the profit 
 
 ## Live Demo
 
-[View Live Demo](https://yourusername.github.io/sms-ad-campaign-calculator) <!-- Replace with your actual GitHub Pages URL -->
+[View Live Demo](https://sms-campaign-calculator.vercel.app/) <!-- Replace with your actual GitHub Pages URL -->
 
 ## Screenshot
 
